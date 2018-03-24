@@ -10,7 +10,7 @@ from isl import islteams
 from ileague import ileague
 from topscorers import l
 # api.ai client 
-APIAI_ACCESS_TOKEN = "apiai access token"
+APIAI_ACCESS_TOKEN = "ef4ddbe4120d45ee99b53c35afa97a62"
 ai = apiai.ApiAI(APIAI_ACCESS_TOKEN)
 
 league_categories=[("Laliga","Top scorer of Laliga"),("Serie A","Top Scorer of Serie A"),("Ligue 1","Top Scorer of league 1"),("Scottish Premiership","Top Scorer of Scottish Premiership"),
@@ -44,6 +44,7 @@ def func(params):
 		for i in range(len(alltables)):
 			if league.lower() in alltables[i][0].lower():
 				st=alltables[i][0]+'\n'
+				st=st+'pos  Name    P  Gd  Pts'+'\n'
 				for j in range(1,len(alltables[i])):
 					for k in range(len(alltables[i][j])):
 						st=st+alltables[i][j][k]+'  '
@@ -53,17 +54,22 @@ def func(params):
 
 
 def livescore(params):
-	st=''
-	for i in range(len(allleagues)):
-		for j in range(len(allleagues[i])):
-			if j==0:
-				st=st+allleagues[i][j]+'\n'
-			else:
-				st=st+allleagues[i][j]['match']+'\n'
-	if len(st)==0:
-		return 'no ongoing matches'
+	l=[]
+	for i in range(len(allleagues2)):
+		if len(allleagues2[i])>1:
+			element={}
+			element['title'] = allleagues2[i][0]
+			for j in range(1,len(allleagues2[i])):
+				element['subtitle']=allleagues2[i][j]['match']
+				element['buttons'] = [{
+				"type":"web_url",
+				"title":"Read more about match",
+				"url":allleagues2[i][j]['link']}]
+				l.append(element)
+	if len(l)==0:
+		return "no ongoing matches"
 	else:
-		return st
+		return l[:10]
 
 
 
@@ -177,11 +183,10 @@ def playerranking(params):
 		element['title'] = allplayers[i][0]+'  '+allplayers[i][1]
 		element['image_url'] = allplayers[i][3]
 		element['subtitle']=allplayers[i][2]
-		element['item_url'] =allplayers[i][4]
 		element['buttons'] = [{
 					"type":"web_url",
 					"title":"Read more",
-					"url":allplayers[i][4]}]
+					"url":'https://www.ranker.com/list/best-current-soccer-players/ranker-sports?utm_expid=16418821-388.8yjUEguUSkGHvlaagyulMg.0'}]
 		st.append(element)
 	
 	return st
@@ -253,7 +258,7 @@ def fetch_reply(query, session_id):
 
 	elif intent=="live_score":
 		reply['type']='live_score'
-		reply['data']=livescores(params)
+		reply['data']=livescore(params)
 		if reply['data']=="error":
 			reply['type']='none'
 	
@@ -309,6 +314,6 @@ def fetch_reply(query, session_id):
 	
 	else:
 		reply['type'] = 'none'
-		reply['data'] = 'sorry'
+		reply['data'] = 'Sorry'
 		
 	return reply

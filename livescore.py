@@ -45,8 +45,6 @@ l=[]
 for i in range(len(allleague)):
     pleague=allleague[i].findAll("table",{"class":"table table--football football-matches table--responsive-font"})
     leaguename=pleague[0].findAll("caption",{"class":"table__caption table__caption--top"})
-    #print("{}".format(leaguename[0].findAll('a')[0].text))
-    #s['leaguename']=leaguename[0].findAll('a')[0].text
     l.append(leaguename[0].findAll('a')[0].text)
     for j in range(len(pleague)):
         allmatches=pleague[j].findAll("tr",{"class":"football-match football-match--live"})
@@ -54,12 +52,13 @@ for i in range(len(allleague)):
         for k in range(len(allmatches)):
             match=allmatches[k].findAll('span',{"class":"team-name__long"})
             score=allmatches[k].findAll('div',{"class":"football-team__score"})
-            #print("{} {}-{} {}".format(match[0].text,score[0].text,score[1].text,match[1].text))
             s["match"]=match[0].text+" "+score[0].text+"-"+score[1].text+" "+match[1].text
+            s['link']=allmatches[k]['data-link-to']
             l.append(s)
             s={}
     allleagues2.append(l)
     l=[]
+
 
 
 

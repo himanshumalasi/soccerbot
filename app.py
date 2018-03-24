@@ -5,7 +5,7 @@ from pymessenger import Bot
 from utils import fetch_reply, worldranking,HELP_MSG,league_categories
 app = Flask(__name__)
 
-FB_ACCESS_TOKEN = "fb access token"
+FB_ACCESS_TOKEN = "EAACLbZBL02vkBAJN8G9BBQsgILD1wJkwTpL9vM4JVsxZBAYBBhQNlLKifxYOJ47iROwZBnd5xo25ZCqaZAHVlNdRGEN6UTR0cE5QLLoJhZAIRYdFTjFiqrohLbygjRMtEsqk5MxH2EblCzpWLgzTGorZAlEmdNKmXYoycFmsiNm3AZDZD"
 bot = Bot(FB_ACCESS_TOKEN)
 
 VERIFICATION_TOKEN = "hello"
@@ -91,7 +91,9 @@ def webhook():
 									bot.send_text_message(sender_id,'No Such Country')
 							
 							elif reply['type']=='livescore':
-								bot.send_text_message(sender_id,reply['data'])
+								if type(reply['data'])==str:
+									bot.send_text_message(sender_id,reply['data'])
+								bot.send_generic_message(sender_id,reply['data'])
 							
 							elif reply['type']=='playerranking':
 								bot.send_generic_message(sender_id,reply['data'])
@@ -111,7 +113,8 @@ def webhook():
 					if payload ==  'SHOW_HELP':
 						bot.send_text_message(sender_id, HELP_MSG)
 						bot.send_text_message(sender_id,"points table of <league name> for getting points table of league")
-						bot.send_text_message(sender_id,"fixture of <league name> for the fixture of league.\nshow me result of <league name> for getting result of result.")
+						bot.send_text_message(sender_id,"points table of laliga for getting points table of laliga")
+						bot.send_text_message(sender_id,"fixture of <league name> for the fixture of league.\nshow me result of <league name> for getting result of league.")
 						#enter extra messages
 					elif payload=='w_ranking':
 						data=worldranking("")
@@ -128,7 +131,7 @@ def set_greeting_text():
 	data = {
 		"setting_type":"greeting",
 		"greeting":{
-			"text":"Hi {{user_first_name}}! I am SoccerBot.I show you the details of live matches,points table and today's result"
+			"text":"Hi {{user_first_name}}! I am SoccerBot.I show you the details of fixture,points table and today's result and details of any ongoing matches of league..You can also see top scorer using menu or by writing top scorer of a particular league.."
 			}
 		}
 	ENDPOINT = "https://graph.facebook.com/v2.8/me/thread_settings?access_token=%s"%(FB_ACCESS_TOKEN)

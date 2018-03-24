@@ -39,20 +39,17 @@ p=[]
 for i in range(len(allleagues)):
     pleague=allleagues[i].findAll('a',{"class":"standing-table block"})
     for j in range(len(pleague)):
-        if j==1 or j==2 or j==3 or j==4:
-            pass
-        else:
-            p.append(pleague[j].findAll('caption',{"class":"standing-table__caption"})[0].text.replace('\n',''))
-            body=pleague[j].findAll('tbody')
-            for k in range(len(body)):
-                rows=body[k].findAll('tr',{"class":"standing-table__row"})
-                for l in range(len(rows)):
-                    q=[]
-                    q.append(rows[l].findAll("td",{"class":"standing-table__cell"})[0].text)
-                    q.append(rows[l].findAll("td",{"class":"standing-table__cell"})[1].text)
-                    q.append(rows[l].findAll("td",{"class":"standing-table__cell"})[2].text)
-                    q.append(rows[l].findAll("td",{"class":"standing-table__cell"})[3].text)
-                    q.append(rows[l].findAll("td",{"class":"standing-table__cell"})[4].text)
-                    p.append(q)
-            alltables.append(p)
-            p=[]
+    	p.append(pleague[j].findAll('caption',{"class":"standing-table__caption"})[0].text.replace('\n',''))
+    	body=pleague[j].findAll('tbody')
+    	for k in range(len(body)):
+    		rows=body[k].findAll('tr',{"class":"standing-table__row"})
+    		for l in range(len(rows)):
+    			q=[]
+    			q.append(rows[l].findAll("td",{"class":"standing-table__cell"})[0].text)
+    			q.append(rows[l].findAll("td",{"class":"standing-table__cell"})[1].text)
+    			q.append(rows[l].findAll("td",{"class":"standing-table__cell"})[2].text)
+    			q.append(rows[l].findAll("td",{"class":"standing-table__cell"})[3].text)
+    			q.append(rows[l].findAll("td",{"class":"standing-table__cell"})[4].text)
+    			p.append(q)
+    	alltables.append(p)
+    	p=[]
