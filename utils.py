@@ -55,21 +55,16 @@ def func(params):
 
 def livescore(params):
 	l=[]
+	st=''
 	for i in range(len(allleagues2)):
 		if len(allleagues2[i])>1:
-			element={}
-			element['title'] = allleagues2[i][0]
+			st=st+allleagues2[i][0]+'\n'
 			for j in range(1,len(allleagues2[i])):
-				element['subtitle']=allleagues2[i][j]['match']
-				element['buttons'] = [{
-				"type":"web_url",
-				"title":"Read more about match",
-				"url":allleagues2[i][j]['link']}]
-				l.append(element)
-	if len(l)==0:
+				st=st+allleagues2[i][j]['match']+'\n'
+	if len(st)==0:
 		return "no ongoing matches"
 	else:
-		return l[:10]
+		return st
 
 
 
