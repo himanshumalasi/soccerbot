@@ -1,4 +1,4 @@
-This is soccerbot. It shows you the fixtures,result and top scorer of different football leagues such as Laliga,Bundesliga etc.You can go to https://www.facebook.com/ScoreBot-202510880303810/?view_public_for=202510880303810 and check out this app.
+This is soccerbot. It shows you the fixtures,result and top scorer of different football leagues such as Laliga,Bundesliga etc.You can go to https://www.facebook.com/ScoreBot-202510880303810/?view_public_for=202510880303810 and check out this app(May not be working because of change in some facebook policies).
 
 You can use it in following way..
 
